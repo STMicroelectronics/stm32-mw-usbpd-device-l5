@@ -182,8 +182,14 @@ void PORTx_IRQHandler(uint8_t PortNum)
       LL_UCPD_ClearFlag_FRS(hucpd);
       if (USBPD_PORTPOWERROLE_SNK == Ports[PortNum].params->PE_PowerRole)
       {
-        /* we shall calculate the FRS timing to confirm the timing */
-        Ports[PortNum].cbs.USBPD_HW_IF_TX_FRSReception(PortNum);
+        /* Confirm the FRS by checking if an RP is always present on the current CC line
+           we should wait min 6us to refresh the type C state machine */
+        for(uint32_t delay=0; delay < 30; delay++){ __DSB(); }       
+        
+        if (0 != (hucpd->SR & (UCPD_SR_TYPEC_VSTATE_CC1 | UCPD_SR_TYPEC_VSTATE_CC2)))
+        {
+          Ports[PortNum].cbs.USBPD_HW_IF_TX_FRSReception(PortNum);
+        }
       }
     }
   }

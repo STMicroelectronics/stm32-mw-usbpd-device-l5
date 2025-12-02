@@ -264,7 +264,7 @@ void HW_SignalAttachement(uint8_t PortNum, CCxPin_TypeDef cc)
 
 
 #if defined(_VCONN_SUPPORT)
-  /* Initialize Vconn managment */
+  /* Initialize Vconn management */
   (void)BSP_USBPD_PWR_VCONNInit(PortNum, (Ports[PortNum].CCx == CC1) ? 1u : 2u);
 #endif /* _VCONN_SUPPORT */
 
@@ -310,7 +310,7 @@ void HW_SignalDetachment(uint8_t PortNum)
   if (USBPD_PORTPOWERROLE_SNK == Ports[PortNum].params->PE_PowerRole)
   {
 #if defined(_VCONN_SUPPORT)
-    /* DeInitialize Vconn managment */
+    /* DeInitialize Vconn management */
     (void)BSP_USBPD_PWR_VCONNDeInit(PortNum, (Ports[PortNum].CCx == CC1) ? 1u : 2u);
 #endif
     /* DeInitialise VBUS power */

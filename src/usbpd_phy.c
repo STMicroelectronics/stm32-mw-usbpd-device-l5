@@ -358,7 +358,7 @@ void PHY_Rx_Completed(uint8_t PortNum, uint32_t MsgType)
         } USBPD_MsgHeader_TypeDef;
 
         USBPD_MsgHeader_TypeDef header_rx;
-        header_rx.d16 = LE16(Ports[PortNum].ptr_RxBuff);
+        header_rx.d16 = USBPD_LE16(Ports[PortNum].ptr_RxBuff);
         USBPD_TRACE_Add( USBPD_TRACE_PHY_NOTFRWD,PortNum, _msgtype, Ports[PortNum].ptr_RxBuff, 2u + (header_rx.b.NumberOfDataObjects * 4u));
       }
 #endif
